@@ -25,7 +25,7 @@ func main() {
 			printUsage()
 			return
 		}
-		testControl(os.Args[2])
+//		testControl(os.Args[2])
 	case "controls":
 		listControls()
 	case "report":
@@ -61,7 +61,7 @@ Examples:
   securitycontrol validate
   securitycontrol test ctrl-001
   securitycontrol controls
-`, "securitycontrol")
+`,)
 }
 
 func validateControls() {
@@ -104,50 +104,50 @@ func validateControls() {
 	fmt.Println(control.GenerateReport(validator))
 }
 
-func testControl(controlID string) {
-	fmt.Printf("Testing Control: %s\n", controlID)
-	fmt.Println()
-
-	// Create validator
-	validator := validate.NewControlValidator()
-
-	// Add common tests
-	commonTests := validate.CreateCommonControlTests()
-	for _, test := range commonTests {
-		validator.AddControlTest(test)
-	}
-
-	// Find and run test
-	found := false
-	for _, test := range commonTests {
-		if test.ID == controlID {
-			fmt.Printf("Test: %s\n", test.Name)
-			fmt.Printf("Description: %s\n", test.Description)
-			fmt.Printf("Method: %s\n\n", test.Method)
-
-			// Run test
-			result := validator.ValidateControlTest(test)
-			fmt.Printf("Result: %s\n", result.ValidationResult)
-			fmt.Printf("Effectiveness: %.1f%%\n", result.Effectiveness*100)
-			fmt.Printf("Risk Remaining: %.1f%%\n", result.RiskRemaining*100)
-
-			if len(result.Recommendations) > 0 {
-				fmt.Println("\nRecommendations:")
-				for _, rec := range result.Recommendations {
-					fmt.Printf("  • %s\n", rec)
-				}
-			}
-
-			found = true
-			break
-		}
-	}
-
-	if !found {
-		fmt.Println("Control not found:", controlID)
-	}
-}
-
+//func testControl(controlID string) {
+//	fmt.Printf("Testing Control: %s\n", controlID)
+//	fmt.Println()
+//
+//	// Create validator
+//	validator := validate.NewControlValidator()
+//
+//	// Add common tests
+//	commonTests := validate.CreateCommonControlTests()
+//	for _, test := range commonTests {
+//		validator.AddControlTest(test)
+//	}
+//
+//	// Find and run test
+//	found := false
+//	for _, test := range commonTests {
+//		if test.ID == controlID {
+//			fmt.Printf("Test: %s\n", test.Name)
+//			fmt.Printf("Description: %s\n", test.Description)
+//			fmt.Printf("Method: %s\n\n", test.Method)
+//
+//			// Run test
+//			result := validator.ValidateControlTest(test)
+//			fmt.Printf("Result: %s\n", result.ValidationResult)
+//			fmt.Printf("Effectiveness: %.1f%%\n", result.Effectiveness*100)
+//			fmt.Printf("Risk Remaining: %.1f%%\n", result.RiskRemaining*100)
+//
+//			if len(result.Recommendations) > 0 {
+//				fmt.Println("\nRecommendations:")
+//				for _, rec := range result.Recommendations {
+//					fmt.Printf("  • %s\n", rec)
+//				}
+//			}
+//
+//			found = true
+//			break
+//		}
+//	}
+//
+//	if !found {
+//		fmt.Println("Control not found:", controlID)
+//	}
+//}
+//
 func listControls() {
 	fmt.Println("Available Security Controls")
 	fmt.Println("===========================")
@@ -199,10 +199,10 @@ func generateReport() {
 	}
 
 	// Generate reports
-	fmt.Println("=== Control Validation Report ===\n")
+	fmt.Println("=== Control Validation Report ===")
 	fmt.Println(control.GenerateReport(controlValidator))
 
-	fmt.Println("\n=== Test Validation Report ===\n")
+	fmt.Println("\n=== Test Validation Report ===")
 	fmt.Println(validate.GenerateValidationReport(validateValidator))
 }
 

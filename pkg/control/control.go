@@ -144,19 +144,19 @@ func (v *ControlValidator) ValidateControl(controlID string) *ControlValidationR
 	}
 
 	// Validate control implementation
-	effective := v.validateControlImplementation(control)
+	effective := v.validateControlImplementation(*control)
 	result.Effectiveness = effective
 
 	// Check for issues
-	issues := v.identifyIssues(control)
+	issues := v.identifyIssues(*control)
 	result.Issues = issues
 
 	// Determine confidence
-	confidence := v.calculateConfidence(control, issues)
+	confidence := v.calculateConfidence(*control, issues)
 	result.Confidence = confidence
 
 	// Generate recommendations
-	recommendations := v.generateRecommendations(control, issues)
+	recommendations := v.generateRecommendations(*control, issues)
 	result.Recommendations = recommendations
 
 	// Determine overall status
